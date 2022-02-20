@@ -5,6 +5,7 @@ import com.example.demo.model.Project;
 import com.example.demo.model.Role;
 import com.example.demo.services.ProyectService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -40,6 +41,11 @@ public class ProyectController {
         }else{
             return "No pudo eliminar el Proyecto con id" + id;
         }
+    }
+
+    @PutMapping( path = "/{id}")
+    public ResponseEntity<Project> updateProyect(@PathVariable("id") long id, @RequestBody Project project) {
+        return this.proyectService.updateProject(id,project);
     }
 
 }

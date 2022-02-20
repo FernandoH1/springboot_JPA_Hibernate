@@ -1,8 +1,11 @@
 package com.example.demo.services;
 
+import com.example.demo.model.Employee;
 import com.example.demo.model.Role;
 import com.example.demo.repository.IRoleJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -31,6 +34,17 @@ public class RoleService {
             return true;
         }catch(Exception err){
             return false;
+        }
+    }
+
+    public ResponseEntity<Role> updateRole(Long id, Role role) {
+        Optional<Role> roleData = roleJpaRepository.findById(id);
+        if (roleData.isPresent()) {
+            Role _role = roleData.get();
+            _role.setName(role.getName());
+            return new ResponseEntity<>(roleJpaRepository.save(_role), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }
