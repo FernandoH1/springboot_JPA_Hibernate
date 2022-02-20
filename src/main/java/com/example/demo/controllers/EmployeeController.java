@@ -3,6 +3,7 @@ package com.example.demo.controllers;
 import com.example.demo.model.Employee;
 import com.example.demo.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -39,5 +40,11 @@ public class EmployeeController {
             return "No pudo eliminar el Empleado con id" + id;
         }
     }
+
+    @PutMapping( path = "/{id}")
+    public ResponseEntity<Employee> updateEmployee(@PathVariable("id") long id, @RequestBody Employee employee) {
+        return this.employeeService.updateEmployee(id,employee);
+    }
+
 
 }
